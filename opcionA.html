@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Happy meal</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<script type="text/javascript">
+		function simpleAlert() {
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET", 'https://yvone.github.io/DAW/some-numbers.json');
+
+			xhr.onload = function(){
+				if(this.state == 200 && this.readyState == 4){
+					textAction(JSON.parse(this.responseText));
+				}
+				else{
+					console.log("Error:" + this.state);
+				}
+			}
+
+			xhr.onerror = function () {
+				alert('ERROR: ' + this.status);
+			}
+
+			function textAction(text) {
+				let pairs = text.filter(data => data % 2 == 0);
+				let sum = pairs.reduce((a,b) => a + b);
+				alert('datos originales: ' + text + ' datos escogidos: ' + pairs + ' suma de datos: ' + sum);
+			}
+
+			xhr.send();
+		}
+	</script>
+	<div class="rounded align-center main">
+		<div class="boxes top">
+			<h5>9:41</h5>
+			<img class="margin" src="icon.png">
+			<img src="icon.png">
+			<img src="icon.png">
+		</div>
+		<div class="boxes mid">
+			<img src="check.png">
+			<h1>YOUR MEAL IS READY</h1>
+			<h5>Pick up your meal in 'Andrea's Kitchen'.</h5>
+		</div>
+		<div class="image">
+			<img class="rounded" src="meal.jpg">
+		</div>	
+		<div class="boxes stars">
+			<h3>Rate your meal</h3>
+			<div>
+				<img src="star.png">
+				<img src="star.png">
+				<img src="star.png">
+				<img src="star.png">
+				<img src="star.png">
+			</div>
+			<button class="rounded btn" onclick="simpleAlert()">Ok!</button>
+		</div>
+	</div>
+</body>
+</html>
